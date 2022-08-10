@@ -8,11 +8,26 @@
     <link rel="stylesheet" href="style.css"/> 
 </head>
 <body>
-    <div class="time">Time:<span id="timer">0</span></div></div>
-    <div>
+    <!-- High scores and timer -->
+    <div class="scores" id="high-scores">
+        <button>View High Scores</button>
+    </div>
+    <div class="time">Time:<span id="timer">0</span></div>
+
+    <!-- The opening page -->
+    <div id="open-screen" class="open">
         <h1>Coding Quiz!</h1>
         <h2>Are you up for the challenge?</h2>
         <button>Star Quiz</button>
+    </div>
+    <!-- Quiz questions -->
+    <div id="quiz-questions" class="none">
+
+    </div>
+    <!-- The Closing page -->
+    <div id="close-screen" class="none">
+        <h2>You have finished the quiz!</h2>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="./assets/js/script.js"></script>

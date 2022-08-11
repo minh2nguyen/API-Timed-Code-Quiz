@@ -8,6 +8,11 @@ h1 {
     color: blue;
 }
 
+p {
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
 button {
     background-color: darkred;
     color: white;

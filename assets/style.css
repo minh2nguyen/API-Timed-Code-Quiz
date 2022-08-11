@@ -17,6 +17,11 @@ button {
     background-color: darkred;
     color: white;
     font-weight: bold;
+    text-align: center;
+}
+
+ul {
+    
 }
 
 h2 {

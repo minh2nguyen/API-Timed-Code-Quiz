@@ -3,3 +3,17 @@ body {
     background-color: aquamarine;
 }
 /* Start styling of OPENING page */
+h1 {
+    text-align: center;
+    color: blue;
+}
+
+button {
+    background-color: darkred;
+    color: white;
+    font-weight: bold;
+}
+
+h2 {
+    text-align: center;
+}

@@ -39,70 +39,60 @@
             </section>
 
             <!-- Questions section window display -->
-<section class="question-screen" id="question-screen">
-    <div>
-        <div>
-            <h3 id="questions-asked">Questions asked</h3>
-            <ul>
-                <li><button class ="option-button" id="answer-button1" value="A">Answer1</button></li>
-                <li><button class ="option-button" id="answer-button2" value="B">Answer2</button></li>
-                <li><button class ="option-button" id="answer-button3" value="C">Answer3</button></li>
-                <li><button class ="option-button" id="answer-button1" value="D">Answer4</button></li>
-            </ul>
-        </div>
+            <section class="question-screen" id="question-screen">
+                <div>
+                    <div>
+                        <h3 id="questions-asked">Questions asked</h3>
+                        <ul>
+                            <li><button class="option-button" id="answer-button1" value="A">Answer1</button></li>
+                            <li><button class="option-button" id="answer-button2" value="B">Answer2</button></li>
+                            <li><button class="option-button" id="answer-button3" value="C">Answer3</button></li>
+                            <li><button class="option-button" id="answer-button1" value="D">Answer4</button></li>
+                        </ul>
+                    </div>
+                    <!-- Checking answers to the questions -->
+                    <div id="check-answer">
+                        <p>Correct or Incorrect</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Final score screen report -->
+            <section class="final-page" id="final-page">
+                <div>
+                    <h3 id="final">Yay! You've finished the quiz! Let's see how you did.</h3>
+                    <p id="final-score">Your final score is:</p>
+                    <p>Please enter your fist and last initials
+                        <input id="initials">
+                        <button class="button" id="submitBtn"></button>
 
-    </div>
+                    </p>
+                </div>
+            </section>
 
-</section>
+            <!-- View Highscores sections -->
+            <section class="highscore-page" id="highscore-page">
+                <div>
+                    <h3>Highscores:</h3>
+                    <div id="record-score">
+                        <p>Your score records</p>
+                    </div>
+                    <div>
+                        <button class="button" id="backBtn">Go Back</button>
+                        <button class="button" id="clearBtn">Clear ALL Scores</button>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
+    <!-- footer at the end of webpage -->
+    <footer>
+        <p>
+            Made with ❤️ by MinhThu Nguyen
+        </p>
+    </footer>
 
-    <div>
-
-        <!-- Quiz window -->
-        <!-- <h3 id="questions"></h3>
-        <div id="quizWindow">
-            <div id="window1">
-                <div id="multipleChoice">
-                    <div class="questionAsked">
-                        <label id="answerA"></label>
-                    </div>
-                    <div class="questionAsked">
-                        <label id="answerB"></label>
-                    </div>
-                    <div class="questionAsked">
-                        <label id="answerC"></label>
-                    </div>
-                    <div class="questionAsked">
-                        <label id="answerD"></label>
-                    </div>
-
-                </div>
-
-            </div>
-        </div> -->
-
-        <!-- <div class = "container">
-    <div id="quiz-questions" class="hidden">
-        <h2 id="questions-asked"></h2>
-            <ul id="answer-choices" class="choices"></ul>
-            <button class='btn'>A</button>
-            <button class='btn'>B</button>
-            <button class='btn'>C</button>
-            <button class='btn'>D</button>
-    </div>
-</div>
-<div id="choices">
-    <button id="'nextBtn">Next Question</button>
-</div> -->
-        <!-- The Closing page -->
-        <div id="close-screen" class="hidden">
-            <h2>You have finished the quiz!</h2>
-
-        </div>
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-        <script type="text/javascript" src="./assets/script.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>

@@ -49,43 +49,64 @@ var checkAnswer = document.querySelector("#check-answer");
 var finalPage = document.querySelector("#final-page");
 var finalScore = document.querySelector("#final-score");
 var userInitials = document.querySelector("#initials");
+var submitBtn = document.querySelector("#submitBtn");
+var recordScore = document.querySelector("#record-score");
+var highscorePage = document.querySelector ("#highscore-page");
+var checkHighscore = document.querySelector ("#check-highscore");
+var final = document.querySelector("#final");
+var backBtn = document.querySelector("#backBtn");
+var clearBtn = document.querySelector("clearBtn");
 
-
-
-// Declared var
+// Declared var for the timer 
 var score = 0;
 var questionChoices = 0;
-var openScreen = document.querySelector("open-screen");
-
-// Seconds in timer
-var seconds = 75;
-var timeInterval = 0;
-var penaltyTime = 10;
-var startButton = document.querySelector("#startBtn");
-var nextButton = document.querySelector("#nextBtn");
-var timer = document.querySelector("#timer");
-var questions = document.querySelector("#questions");
-var answerA = document.querySelector("#answerA");
-var answerB = document.querySelector("#answerB");
-var answerC = document.querySelector("#answerC");
-var answerD = document.querySelector("#answerD");
+var seconds = 70;
+var count = 1;
+var timer = document.getElementById("timer");
 
 
 // Click Start Button to activate countdown timer 
-startButton.addEventListener("click", function () {
-    if (timeInterval === 0) {
-        timeInterval = setInterval(function () {
-            seconds--;
-            timer.textContent = seconds;
+function startCountdown() {
+    var timeInterval = setInterval(function() {
+        seconds--;
+        timer.textContent = seconds;
 
-            if (seconds <= 0) {
-                clearInterval(timeInterval);
-                allDone();
-                timer.textContent = "Time's up!";
-            }
-        },1000);
-    }
-});
+        if (seconds <= 0) {
+            clearInterval(timeInterval);
+            timer.textContent = "Time's up!";
+            final.textContent = "All done!";
+            gameOver();
+        }else if(count >= questionsArray.length +1) {
+            clearInterval(timeInterval);
+            gameOver();
+        }
+    }, 1000);
+}
+
+function start (){
+    startPage.style.display = "none";
+    questionScreen.style.display = "block";
+    questionChoices = 0;
+    startCountdown();
+    displayQuestion();
+}
+
+
+
+// startButton.addEventListener("click", function () {
+//     if (timeInterval === 0) {
+//         timeInterval = setInterval(function () {
+//             seconds--;
+//             timer.textContent = seconds;
+
+//             if (seconds <= 0) {
+//                 clearInterval(timeInterval);
+//                 allDone();
+//                 timer.textContent = "Time's up!";
+//             }
+//         },1000);
+//     }
+// });
 
 //Displaying question on screen
 function displayQuestion(){

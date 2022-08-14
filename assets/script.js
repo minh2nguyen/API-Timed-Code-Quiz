@@ -28,31 +28,31 @@ var questionsArray = [
 ];
 
 // Defined Variables for each section of the quiz in the HTML
-    //These variables are for the opening page
+//These variables are for the opening page
 var startPage = document.querySelector("#start");
 var startBtn = document.querySelector("#startBtn");
 var startScreen = document.querySelector("#start-screen");
 
-    // These variables are for the questions 
+// These variables are for the questions 
 var questionScreen = document.querySelector("#question-screen");
 var questionAsked = document.querySelector("#question-asked");
 
-    // These variables are the answer choices 
+// These variables are the answer choices 
 var optionBtn = document.querySelector(".option-button");
 var answerB1 = document.querySelector("#answer-button1");
 var answerB2 = document.querySelector("#answer-button2");
 var answerB3 = document.querySelector("#answer-button3");
 var answerB4 = document.querySelector("#answer-button4");
 
-    // These are variables for the final score 
+// These are variables for the final score 
 var checkAnswer = document.querySelector("#check-answer");
 var finalPage = document.querySelector("#final-page");
 var finalScore = document.querySelector("#final-score");
 var userInitials = document.querySelector("#initials");
 var submitBtn = document.querySelector("#submitBtn");
 var recordScore = document.querySelector("#record-score");
-var highscorePage = document.querySelector ("#highscore-page");
-var checkHighscore = document.querySelector ("#check-highscore");
+var highscorePage = document.querySelector("#highscore-page");
+var checkHighscore = document.querySelector("#check-highscore");
 var final = document.querySelector("#final");
 var backBtn = document.querySelector("#backBtn");
 var clearBtn = document.querySelector("clearBtn");
@@ -67,7 +67,7 @@ var timer = document.getElementById("timer");
 
 // Click Start Button to activate countdown timer 
 function startCountdown() {
-    var timeInterval = setInterval(function() {
+    var timeInterval = setInterval(function () {
         seconds--;
         timer.textContent = seconds;
 
@@ -76,22 +76,87 @@ function startCountdown() {
             timer.textContent = "Time's up!";
             final.textContent = "All done!";
             gameOver();
-        }else if(count >= questionsArray.length +1) {
+        } else if (count >= questionsArray.length + 1) {
             clearInterval(timeInterval);
             gameOver();
         }
     }, 1000);
 }
 
-function start (){
+function begin() {
     startPage.style.display = "none";
     questionScreen.style.display = "block";
     questionChoices = 0;
     startCountdown();
-    displayQuestion();
+    displayQuestion(questionChoices);
+}
+
+function displayQuestion(option) {
+    questionAsked.textContent = questionsArray[option].question;
+    answerB1.textContent = questionsArray[option].choices[0];
+    answerB2.textContent = questionsArray[option].choices[1];
+    answerB3.textContent = questionsArray[option].choices[2];
+    answerB4.textContent = questionsArray[option].choices[3];
+    questionChoices = option;
 }
 
 
+function check(event) {
+    event.preventDefault();
+    checkAnswer.style.display = "block";
+    setTimeout(function () {
+        checkAnswer.style.display = 'none';
+    }, 1000);
+
+    if (questionsArray[questionChoices].corAnswer == event.target.value) {
+        checkAnswer.textContent = "CORRECT!";
+        score = score + 1;
+    } else {
+        seconds = seconds - 10;
+        checkAnswer.textContent = "INCORRECT!";
+    }
+    if (questionChoices < questionsArray.length - 1) {
+        displayQuestion(questionChoices + 1);
+    } else {
+        gameOver();
+}
+    count++;
+}
+
+function gameOver() {
+    questionScreen.style.display ="none";
+    finalPage.style.display = "block";
+    console.log(finalPage);
+    finalScore.textContent = score; 
+    timer.style.display="none";
+
+};
+
+function recieveScore() {
+    var currentList = localStorage.getItem("scoreList");
+    if (currentList !== null) {
+        newList = JSON.parse(currentList);
+        return newList;
+    } else {
+        newList = [];
+    }
+    return newList;
+};
+
+function createScore () {
+    recordScore.innerHTML = "";
+    recordScore.style.display = "block";
+    var highscore = sort();
+    var topScores = highscore.slice(0,5);
+    for (var i = 0; i < topScores.length; i++) {
+        var item = topScores[i];
+    var li = document.createElement("li");
+    li.textContent = item.user + "-" + item.score;
+    li.setAttribute("date-index", i);
+    recordScore.appendChild(li);
+    }
+
+};
 
 // startButton.addEventListener("click", function () {
 //     if (timeInterval === 0) {
@@ -109,17 +174,17 @@ function start (){
 // });
 
 //Displaying question on screen
-function displayQuestion(){
-    if (questionChoices < questionsArray.length) {
-        questions.textContent = questionsArray[questionChoices].questions;
-        answerA.textContent = questionsArray[questionChoices].selection[0];
-        answerB.textContent = questionsArray[questionChoices].selection[1];
-        answerC.textContent = questionsArray[questionChoices].selection[2];
-        answerD.textContent = questionsArray[questionChoices].selection[3];
-    } else {
-        gameOver();
-    }
-}
+// function displayQuestion(){
+//     if (questionChoices < questionsArray.length) {
+//         questions.textContent = questionsArray[questionChoices].questions;
+//         answerA.textContent = questionsArray[questionChoices].selection[0];
+//         answerB.textContent = questionsArray[questionChoices].selection[1];
+//         answerC.textContent = questionsArray[questionChoices].selection[2];
+//         answerD.textContent = questionsArray[questionChoices].selection[3];
+//     } else {
+//         gameOver();
+//     }
+// }
 // Function that asks the quesitons and displays the choices 
 // function render(questionChoices) {
 //     openScreen.innerHTML= "";

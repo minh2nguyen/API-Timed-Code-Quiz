@@ -1,10 +1,3 @@
-//  Declare global variables
-// var startBtn = $("#startBtn");
-// var timer = $("#startBtn");
-// var score = 0;
-// var questionIndex = 0;
-
-
 // Questions arrays
 var questionsArray = [
     {
@@ -42,45 +35,80 @@ var openScreen = document.querySelector("open-screen");
 var seconds = 75;
 var timeInterval = 0;
 var penaltyTime = 10;
-var timer = document.querySelector("#startBtn");
-var time = document.querySelector("#timer");
-var create = document.createElement("ul");
+var startButton = document.querySelector("#startBtn");
+var nextButton = document.querySelector("#nextBtn");
+var timer = document.querySelector("#timer");
+var questions = document.querySelector("#questions");
+var answerA = document.querySelector("#answerA");
+var answerB = document.querySelector("#answerB");
+var answerC = document.querySelector("#answerC");
+var answerD = document.querySelector("#answerD");
+
 
 // Click Start Button to activate countdown timer 
-timer.addEventListener("click", function () {
+startButton.addEventListener("click", function () {
     if (timeInterval === 0) {
         timeInterval = setInterval(function () {
             seconds--;
-            time.textContent = seconds;
+            timer.textContent = seconds;
 
             if (seconds <= 0) {
                 clearInterval(timeInterval);
                 allDone();
-                time.textContent = "Time's up!";
+                timer.textContent = "Time's up!";
             }
         },1000);
     }
-    render(questionChoices);
 });
 
-// Function that asks the quesitons and displays the choices 
-function render(questionChoices) {
-    openScreen.innerHTML= "";
-    create.innerHTML = "";
-    for (var i = 0; i < questionsArray.length; i++) {
-        var questionsAsk = questionsArray(questionChoices).question;
-        var answerOptions = questionsArray(questionChoices).choices;
-        openScreen.textContent = questionsAsk;
+//Displaying question on screen
+function displayQuestion(){
+    if (questionChoices < questionsArray.length) {
+        questions.textContent = questionsArray[questionChoices].questions;
+        answerA.textContent = questionsArray[questionChoices].selection[0];
+        answerB.textContent = questionsArray[questionChoices].selection[1];
+        answerC.textContent = questionsArray[questionChoices].selection[2];
+        answerD.textContent = questionsArray[questionChoices].selection[3];
+    } else {
+        gameOver();
     }
-
-    answerOptions.forEach(function (newItem) {
-        var listItem = document.createElement("li");
-        listItem.textContent = newItem;
-        openScreen.appendChild(create);
-        create.appendChild(listItem);
-        listItem.addEventListener("click", (compare));
-    })
 }
+// Function that asks the quesitons and displays the choices 
+// function render(questionChoices) {
+//     openScreen.innerHTML= "";
+//     createUl.innerHTML = "";
+//     for (var i = 0; i < questionsArray.length; i++) {
+//         var questionsAsk = questionsArray[questionChoices].question;
+//         var answerOptions = questionsArray[questionChoices].choices;
+//         openScreen.textContent = questionsAsk;
+//     }
+
+//     answerOptions.forEach(function (newItem) {
+//         var listItem = document.createElement("li");
+//         listItem.textContent = newItem;
+//         openScreen.appendChild(createUl);
+//         create.appendChild(listItem);
+//         listItem.addEventListener("click", (compare));
+//     })
+// }
+
+// function compare(event) {
+//     var element = event.target;
+
+//     if(element.matches("li")) {
+//         var divCreate = document.createElement("div");
+//         divCreate.setAttribute("id", "divCreate");
+//         // for Correct answers
+//         if (element.textContent == questionsArray[questionChoices].corAnswer) {
+//             score++;
+//             divCreate.textContent = "Yay! That is CORRECT!";
+//         } else {
+//             // tine pentality -10 seconds 
+//             seconds = seconds - penaltyTime;
+//             divCreate.textContent = "Sorry, that is INCORRECT."
+//         }
+//     }
+// }
 
 // var answerChoices = $("#answer-choices");
 // var answer = answerChoices.val();

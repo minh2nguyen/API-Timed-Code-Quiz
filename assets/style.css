@@ -5,10 +5,10 @@ body {
     min-height: 100vh;
     justify-content: center;
     font-family: 'Monoton', cursive;
+    font-weight: lighter;
     background-image: url("https://static.vecteezy.com/system/resources/previews/002/425/581/non_2x/abstract-light-technology-microchip-background-vector.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    font-weight: lighter;
 }
 
 .header {
@@ -16,6 +16,7 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
 
 main {
     text-align: center;

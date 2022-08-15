@@ -91,13 +91,13 @@ function begin() {
     displayQuestion(questionChoices);
 }
 
-function displayQuestion(option) {
-    questionAsked.textContent = questionsArray[option].question;
-    answerB1.textContent = questionsArray[option].choices[0];
-    answerB2.textContent = questionsArray[option].choices[1];
-    answerB3.textContent = questionsArray[option].choices[2];
-    answerB4.textContent = questionsArray[option].choices[3];
-    questionChoices = option;
+function displayQuestion(n) {
+    questionAsked.textContent = questionsArray[n].question;
+    answerB1.textContent = questionsArray[n].choices[0];
+    answerB2.textContent = questionsArray[n].choices[1];
+    answerB3.textContent = questionsArray[n].choices[2];
+    answerB4.textContent = questionsArray[n].choices[3];
+    questionChoices = n;
 }
 
 
@@ -119,16 +119,16 @@ function check(event) {
         displayQuestion(questionChoices + 1);
     } else {
         gameOver();
-}
+    }
     count++;
 }
 
 function gameOver() {
-    questionScreen.style.display ="none";
+    questionScreen.style.display = "none";
     finalPage.style.display = "block";
     console.log(finalPage);
-    finalScore.textContent = score; 
-    timer.style.display="none";
+    finalScore.textContent = score;
+    timer.style.display = "none";
 
 };
 
@@ -143,20 +143,66 @@ function recieveScore() {
     return newList;
 };
 
-function createScore () {
+function createScore() {
     recordScore.innerHTML = "";
     recordScore.style.display = "block";
     var highscore = sort();
-    var topScores = highscore.slice(0,5);
+    var topScores = highscore.slice(0, 5);
     for (var i = 0; i < topScores.length; i++) {
         var item = topScores[i];
-    var li = document.createElement("li");
-    li.textContent = item.user + "-" + item.score;
-    li.setAttribute("date-index", i);
-    recordScore.appendChild(li);
+        var li = document.createElement("li");
+        li.textContent = item.user + "-" + item.score;
+        li.setAttribute("date-index", i);
+        recordScore.appendChild(li);
     }
 
 };
+
+function sort() {
+    var ul = recieveScore();
+    if (recieveScore == null) {
+        return;
+    } else {
+        ul.sort(function (a, b) {
+            return b.score - a.score;
+        })
+        return ul;
+    }
+};
+
+function addItem (n) {
+    var addedList = recordScore();
+    addedList.push(n);
+    localStorage.setItem("ScoreList", JSON.stringify(addedList));
+};
+
+function saveScore () {
+    var scoreItem ={
+        user: userInitials.value,
+        score: finalScore
+    }
+    addItem(scoreItem);
+    createScore();
+}
+
+startBtn.addEventListener("click", begin);
+optionBtn.forEach(function(click){
+    click.addEventListener("click", check);
+});
+
+submitBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    finalPage.style.display = "none";
+    startScreen.style.display = "none";
+    highscorePage.style.display = "block";
+    questionScreen.style.display = "none";
+    saveScore();
+
+});
+
+checkHighscore.addEventListener("click")
+
+
 
 // startButton.addEventListener("click", function () {
 //     if (timeInterval === 0) {

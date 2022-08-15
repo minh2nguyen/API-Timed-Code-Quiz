@@ -1,15 +1,16 @@
 
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     justify-content: center;
 
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 main {
@@ -19,25 +20,7 @@ main {
     margin-left: 200px;
     margin-right: 200px;
 }
-.question-screen {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-}
 
-ul {
-list-style-type: none;
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-items: baseline;
-padding-left: 50%;
-}
-
-.question-screen, .highscore-page, #check-answer, .final-page {
-    display: none;
-}
 /* Start styling of OPENING page */
 h1 {
     text-align: center;
@@ -54,10 +37,38 @@ p {
     color: white;
     font-weight: bold;
     text-align: center;
-    margin-left:50%;
+    justify-content: center;
+   margin: auto;
 }
 
 
 h2 {
     text-align: center;
+}
+
+/* Styling of the question screen */
+.question-screen {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+ul {
+list-style-type: none;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: baseline;
+padding-left: 50%;
+}
+
+/* This will hide the question, highscore, answer, and final score screen until the user gets to it */
+.question-screen, .highscore-page, #check-answer, .final-page {
+    display: none;
+}
+
+/* Styling of the Footer */
+footer {
+    font-weight: bold;
 }

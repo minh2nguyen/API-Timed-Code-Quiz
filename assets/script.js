@@ -3,27 +3,27 @@ var questionsArray = [
     {
         question: "1. The condition in an if / else statement is enclosed within ____.",
         choices: ["A. quotes", "B. curly brackets", "C. parentheses", "D. square brackets"],
-        answer: "C. parenthese"
+        answer: "C"
     },
     {
         question: "2. Commonly used data types DO NOT include:",
         choices: ["A. strings", "B. booleans", "C. alerts", "D. numbers"],
-        answer: "C. alerts"
+        answer: "C"
     },
     {
         question: "3. Arrays in Javascript can be used to store ____.",
         choices: ["A. numbers and strings", "B. other arrays", "C. booleans", "D. all of the above"],
-        answer: "D. all of the above"
+        answer: "D"
     },
     {
         question: "4. String values must be enclosed within ____ when being assigned to variables.",
         choices: ["A. commas", "B. curly brackets", "C. quotes", "D. parenthesis"],
-        answer: "C. quotes"
+        answer: "C"
     },
     {
         question: "5. A very useful tool for used during development and debugging for printing content to the debugger is:",
         choices: ["A. Javascript", "B. terminal / bash", "C. for loops", "D. console log"],
-        answer: "D. console log"
+        answer: "D"
     }
 ];
 
@@ -107,16 +107,16 @@ function checkAn(event) {
     event.preventDefault();
     checkAnswer.style.display = "block";
     setTimeout(function () {
-        checkAnswer.style.display = "none";
+        checkAnswer.style.display = 'none';
     }, 1000);
 
     if (questionsArray[questionNumber].answer == event.target.value) {
-        checkAnswer.textContent = "CORRECT!";
+        checkAnswer.textContent = "YAY! CORRECT!";
         score = score + 1;
         // This will subtract 10 seconds from the time if the user answers the question incorrectly 
     } else {
         seconds = seconds - 10;
-        checkAnswer.textContent = "INCORRECT!";
+        checkAnswer.textContent = "Sorry, that is INCORRECT!";
     }
 
     if (questionNumber < questionsArray.length - 1) {

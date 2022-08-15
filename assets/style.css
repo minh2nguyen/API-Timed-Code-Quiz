@@ -1,6 +1,42 @@
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 body {
-    font-family:DejaVu Sans Mono, monospace; 
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+
+}
+
+main {
+    text-align: center;
+    justify-content: center;
+    flex: 1 0 auto;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.question-screen {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+ul {
+list-style-type: none;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: baseline;
+padding-left: 50%;
+}
+
+.question-screen, .highscore-page, #check-answer, .final-page {
+    display: none;
 }
 /* Start styling of OPENING page */
 h1 {
@@ -13,7 +49,7 @@ p {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-button {
+.button {
     background-color: darkred;
     color: white;
     font-weight: bold;
@@ -21,9 +57,6 @@ button {
     margin-left:50%;
 }
 
-ul {
-
-}
 
 h2 {
     text-align: center;

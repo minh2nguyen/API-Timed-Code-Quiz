@@ -3,27 +3,27 @@ var questionsArray = [
     {
         question: "1. The condition in an if / else statement is enclosed within ____.",
         choices: ["A. quotes", "B. curly brackets", "C. parentheses", "D. square brackets"],
-        corAnswer: "parenthese"
+        answer: "C. parenthese"
     },
     {
         question: "2. Commonly used data types DO NOT include:",
         choices: ["A. strings", "B. booleans", "C. alerts", "D. numbers"],
-        corAnswer: "alerts"
+        answer: "C. alerts"
     },
     {
         question: "3. Arrays in Javascript can be used to store ____.",
         choices: ["A. numbers and strings", "B. other arrays", "C. booleans", "D. all of the above"],
-        corAnswer: "all of the above"
+        answer: "D. all of the above"
     },
     {
         question: "4. String values must be enclosed within ____ when being assigned to variables.",
         choices: ["A. commas", "B. curly brackets", "C. quotes", "D. parenthesis"],
-        corAnswer: "quotes"
+        answer: "C. quotes"
     },
     {
         question: "5. A very useful tool for used during development and debugging for printing content to the debugger is:",
         choices: ["A. Javascript", "B. terminal / bash", "C. for loops", "D. console log"],
-        answer: "console log"
+        answer: "D. console log"
     }
 ];
 
@@ -38,7 +38,7 @@ var questionScreen = document.querySelector("#question-screen");
 var questionAsked = document.querySelector("#question-asked");
 
 // These variables are the answer choices 
-var optionBtn = document.querySelector(".option-button");
+var choicesBtn = document.querySelectorAll(".choices");
 var answerB1 = document.querySelector("#answer-button1");
 var answerB2 = document.querySelector("#answer-button2");
 var answerB3 = document.querySelector("#answer-button3");
@@ -55,17 +55,18 @@ var highscorePage = document.querySelector("#highscore-page");
 var checkHighscore = document.querySelector("#check-highscore");
 var final = document.querySelector("#final");
 var backBtn = document.querySelector("#backBtn");
-var clearBtn = document.querySelector("clearBtn");
+var clearBtn = document.querySelector("#clearBtn");
 
 // Declared var for the timer 
-var score = 0;
-var questionChoices = 0;
-var seconds = 70;
-var count = 1;
 var timer = document.getElementById("timer");
+var seconds = 70;
+var score = 0;
+var questionNumber = 0;
+var count = 1;
 
 
-// Click Start Button to activate countdown timer 
+
+// Function to activate countdown timer 
 function startCountdown() {
     var timeInterval = setInterval(function () {
         seconds--;
@@ -73,8 +74,8 @@ function startCountdown() {
 
         if (seconds <= 0) {
             clearInterval(timeInterval);
-            timer.textContent = "Time's up!";
-            final.textContent = "All done!";
+            timer.textContent = "All done!";
+            final.textContent = "Time's up!";
             gameOver();
         } else if (count >= questionsArray.length + 1) {
             clearInterval(timeInterval);
@@ -83,12 +84,13 @@ function startCountdown() {
     }, 1000);
 }
 
-function begin() {
+// Function to start the quiz and display the questions and answer choices
+function beginQuiz() {
     startPage.style.display = "none";
     questionScreen.style.display = "block";
-    questionChoices = 0;
+    questionNumber = 0
     startCountdown();
-    displayQuestion(questionChoices);
+    displayQuestion(questionNumber);
 }
 
 function displayQuestion(n) {
@@ -97,32 +99,35 @@ function displayQuestion(n) {
     answerB2.textContent = questionsArray[n].choices[1];
     answerB3.textContent = questionsArray[n].choices[2];
     answerB4.textContent = questionsArray[n].choices[3];
-    questionChoices = n;
+    questionNumber = n;
 }
 
-
-function check(event) {
+// Function to check the answer and alert wheather it is correct or incorrect 
+function checkAn(event) {
     event.preventDefault();
     checkAnswer.style.display = "block";
     setTimeout(function () {
-        checkAnswer.style.display = 'none';
+        checkAnswer.style.display = "none";
     }, 1000);
 
-    if (questionsArray[questionChoices].corAnswer == event.target.value) {
+    if (questionsArray[questionNumber].answer == event.target.value) {
         checkAnswer.textContent = "CORRECT!";
         score = score + 1;
+        // This will subtract 10 seconds from the time if the user answers the question incorrectly 
     } else {
         seconds = seconds - 10;
         checkAnswer.textContent = "INCORRECT!";
     }
-    if (questionChoices < questionsArray.length - 1) {
-        displayQuestion(questionChoices + 1);
+
+    if (questionNumber < questionsArray.length - 1) {
+        displayQuestion(questionNumber + 1);
+
     } else {
         gameOver();
     }
     count++;
 }
-
+// Function for ending the game 
 function gameOver() {
     questionScreen.style.display = "none";
     finalPage.style.display = "block";
@@ -131,9 +136,9 @@ function gameOver() {
     timer.style.display = "none";
 
 };
-
+// Functions that will record the scores in a list 
 function recieveScore() {
-    var currentList = localStorage.getItem("scoreList");
+    var currentList = localStorage.getItem("ScoreList");
     if (currentList !== null) {
         newList = JSON.parse(currentList);
         return newList;
@@ -146,8 +151,9 @@ function recieveScore() {
 function createScore() {
     recordScore.innerHTML = "";
     recordScore.style.display = "block";
-    var highscore = sort();
-    var topScores = highscore.slice(0, 5);
+    var highScore = sort();
+    // This variable will display the top 3 highscores 
+    var topScores = highScore.slice(0, 3);
     for (var i = 0; i < topScores.length; i++) {
         var item = topScores[i];
         var li = document.createElement("li");
@@ -157,27 +163,27 @@ function createScore() {
     }
 
 };
-
+// Fuction will sort the highscores from highest to lowest
 function sort() {
-    var ul = recieveScore();
+    var unsorted = recieveScore();
     if (recieveScore == null) {
         return;
     } else {
-        ul.sort(function (a, b) {
+        unsorted.sort(function (a, b) {
             return b.score - a.score;
         })
-        return ul;
+        return unsorted;
     }
 };
 
-function addItem (n) {
-    var addedList = recordScore();
+function addItem(n) {
+    var addedList = recieveScore();
     addedList.push(n);
     localStorage.setItem("ScoreList", JSON.stringify(addedList));
 };
 
-function saveScore () {
-    var scoreItem ={
+function saveScore() {
+    var scoreItem = {
         user: userInitials.value,
         score: finalScore
     }
@@ -185,12 +191,16 @@ function saveScore () {
     createScore();
 }
 
-startBtn.addEventListener("click", begin);
-optionBtn.forEach(function(click){
-    click.addEventListener("click", check);
+// This event listener is for the start button 
+startBtn.addEventListener("click", beginQuiz);
+
+// This event listener is for each of the answer choices for the questions 
+choicesBtn.forEach(function (click) {
+    click.addEventListener("click", checkAn);
 });
 
-submitBtn.addEventListener("click", function(event) {
+// This even listener is for the submit button after the user has entered their initials 
+submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
     finalPage.style.display = "none";
     startScreen.style.display = "none";
@@ -200,76 +210,29 @@ submitBtn.addEventListener("click", function(event) {
 
 });
 
-checkHighscore.addEventListener("click")
+// This even listener is for viewing the highscores 
+checkHighscore.addEventListener("click", function (event) {
+    event.preventDefault();
+    finalPage.style.display = "none";
+    startScreen.style.display = "none";
+    highscorePage.style.display = "block";
+    questionScreen.style.display = "none";
+    createScore();
+});
 
+// This event listener is for the back button that will take the user back to the main page 
+backBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    finalPage.style.display = "none";
+    startScreen.style.display = "block";
+    highscorePage.style.display = "none";
+    questionScreen.style.display = "none";
+    location.reload();
+});
 
-
-// startButton.addEventListener("click", function () {
-//     if (timeInterval === 0) {
-//         timeInterval = setInterval(function () {
-//             seconds--;
-//             timer.textContent = seconds;
-
-//             if (seconds <= 0) {
-//                 clearInterval(timeInterval);
-//                 allDone();
-//                 timer.textContent = "Time's up!";
-//             }
-//         },1000);
-//     }
-// });
-
-//Displaying question on screen
-// function displayQuestion(){
-//     if (questionChoices < questionsArray.length) {
-//         questions.textContent = questionsArray[questionChoices].questions;
-//         answerA.textContent = questionsArray[questionChoices].selection[0];
-//         answerB.textContent = questionsArray[questionChoices].selection[1];
-//         answerC.textContent = questionsArray[questionChoices].selection[2];
-//         answerD.textContent = questionsArray[questionChoices].selection[3];
-//     } else {
-//         gameOver();
-//     }
-// }
-// Function that asks the quesitons and displays the choices 
-// function render(questionChoices) {
-//     openScreen.innerHTML= "";
-//     createUl.innerHTML = "";
-//     for (var i = 0; i < questionsArray.length; i++) {
-//         var questionsAsk = questionsArray[questionChoices].question;
-//         var answerOptions = questionsArray[questionChoices].choices;
-//         openScreen.textContent = questionsAsk;
-//     }
-
-//     answerOptions.forEach(function (newItem) {
-//         var listItem = document.createElement("li");
-//         listItem.textContent = newItem;
-//         openScreen.appendChild(createUl);
-//         create.appendChild(listItem);
-//         listItem.addEventListener("click", (compare));
-//     })
-// }
-
-// function compare(event) {
-//     var element = event.target;
-
-//     if(element.matches("li")) {
-//         var divCreate = document.createElement("div");
-//         divCreate.setAttribute("id", "divCreate");
-//         // for Correct answers
-//         if (element.textContent == questionsArray[questionChoices].corAnswer) {
-//             score++;
-//             divCreate.textContent = "Yay! That is CORRECT!";
-//         } else {
-//             // tine pentality -10 seconds 
-//             seconds = seconds - penaltyTime;
-//             divCreate.textContent = "Sorry, that is INCORRECT."
-//         }
-//     }
-// }
-
-// var answerChoices = $("#answer-choices");
-// var answer = answerChoices.val();
-// console.log(answer)
-
-
+// This event listener is for the clear button, and will clear all the previous highscores 
+clearBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    createScore();
+});
